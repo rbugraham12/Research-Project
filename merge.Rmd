@@ -1,0 +1,28 @@
+---
+title: "Untitled"
+author: "Xiaolin Ding"
+date: "4/22/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(bayesm)
+library(plyr)
+library(dplyr)
+library(fastDummies)
+library(tidyr)
+library(tidyverse)
+mscr = read.csv("mscr_merge.csv")
+nls = read.csv("NLS.csv")
+nls = nls[-1,]
+for (i in 1:ncol(nls)){
+  nls[,i] = as.numeric(nls[,i])
+}
+```
+
+```{r}
+df = full_join(mscr, nls, by='caseid')
+df
+write.csv(df, 'merge.csv', row.names=FALSE)
+```
+
